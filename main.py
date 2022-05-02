@@ -1,3 +1,4 @@
+from re import X
 from turtle import up
 import pygame
 import sys
@@ -18,6 +19,8 @@ PADDLE_WIDTH, PADDLE_HEIGHT = 20,100
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
+
+BALL_RADIUS = 7
 
 class Paddle:
     COLOR = WHITE
@@ -41,9 +44,27 @@ class Paddle:
             self.y += self.VEL    
 
 
+class BALL:
+    MAX_VEL = 5
+    COLOR = RED
+
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.x_vel = self.MAX_VEL
+        self.y_vel = 0
+    
+    def draw(self, win):
+        pygame.draw.circle(win, self.COLOR, (self.x,self.y), self.radius)
+    
+
+    def move(self):
+        self.x += self.x_vel
+        self.y += self.y_vel
 
 
-def draw_window(win, paddles):
+def draw_window(win, paddles, ball):
     win.fill(BLACK)
 
     for paddle in paddles:
@@ -54,7 +75,7 @@ def draw_window(win, paddles):
             continue
         pygame.draw.rect(win, WHITE, (WIDTH//2 - 5, i, 10, HEIGHT//20))
 
-
+    ball.draw(win)
     pygame.display.update()
 
 
@@ -79,10 +100,10 @@ def main():
 
     left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH,PADDLE_HEIGHT)
     right_paddle = Paddle(WIDTH - 10 - PADDLE_WIDTH, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH,PADDLE_HEIGHT)
-
+    ball = BALL(WIDTH//2, HEIGHT//2, BALL_RADIUS)
 
     while run:
-        draw_window(WIN,[left_paddle,right_paddle])
+        draw_window(WIN,[left_paddle,right_paddle], ball)
         clock.tick(FPS)
         for event in pygame.event.get():
               if event.type == pygame.QUIT:
