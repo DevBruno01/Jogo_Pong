@@ -1,6 +1,3 @@
-from multiprocessing import reduction
-from re import X
-from turtle import left, up
 import pygame
 import sys
 
@@ -25,13 +22,15 @@ BALL_RADIUS = 7
 
 SCORE_FONT = pygame.font.SysFont("comicsans", 50)
 
+WINNIN_SCORE = 10
+
 class Paddle:
     COLOR = WHITE
     VEL = 4
 
     def __init__(self,x,y,width,height):
-        self.x = x
-        self.y = y
+        self.x = self.original_x = x
+        self.y = self.original_y = y
         self.width = width
         self.height = height
 
@@ -44,7 +43,13 @@ class Paddle:
             self.y -= self.VEL
 
         else:
-            self.y += self.VEL    
+            self.y += self.VEL
+
+
+    def reset(self):
+        self.x = self.original_x
+        self.y = self.original_y
+
 
 
 class BALL:
@@ -171,6 +176,27 @@ def main():
             left_score += 1
             ball.reset() 
                 
+        
+        
+        won = False
+        if left_score >= WINNIN_SCORE:
+            won = True
+            win_text = "Left Player WON!"
+        elif right_score >= WINNIN_SCORE:
+            won = True
+            win_text = "Right Player WON!"
+
+
+        if won:
+            text = SCORE_FONT.render(win_text,1,WHITE)
+            WIN.blit(text, (WIDTH//2 - text.get_width()//2, HEIGHT//2 - text.get_height()//2))
+            pygame.display.update()
+            pygame.time.delay(5000)
+            ball.reset()
+            left_paddle.reset()
+            right_paddle.reset()
+            left_score = 0
+            right_score = 0    
 
 
 
