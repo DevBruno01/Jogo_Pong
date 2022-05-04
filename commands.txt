@@ -1,0 +1,9 @@
+Left_Paddle
+
+w = Up
+S = Down
+
+Right_Paddle
+
+arrow Key Up = Up
+arrow key Down = Down
