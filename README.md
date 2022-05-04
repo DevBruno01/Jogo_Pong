@@ -14,8 +14,8 @@ Este projeto foi feito para demonstração dos conhecimentos do autor e de seu p
 
 ## Tecnologias necessárias para rodar o projeto
 
--Python
--Pygame
+- Python
+- Pygame
 
 # Autor
 
