@@ -7,6 +7,16 @@ Este projeto foi feito para demonstração dos conhecimentos do autor e de seu p
 
 ## Layout Programa Principal
 
+
+## Tecnologias utilizadas
+
+- Python
+
+## Tecnologias necessárias para rodar o projeto
+
+-Python
+-Pygame
+
 # Autor
 
 Bruno Brocanelli
